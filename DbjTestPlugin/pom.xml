@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>DbjTestPlugin</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.4</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <properties>
+        <maven.compiler.source>18</maven.compiler.source>
+        <maven.compiler.target>18</maven.compiler.target>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.sundart</groupId>
+                <artifactId>DbjFramework-mvnplugin</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>Creator</goal>
+                        </goals>
+                        <phase>install</phase>
+                        <configuration>
+                            <database>
+                                <schema>testschema</schema>
+                                <username>postgres</username>
+                                <password>mysecretpassword</password>
+                                <url>jdbc:postgresql://localhost:5432/testdatabase</url>
+                            </database>
+                            <disabled>false</disabled>
+                            <createDir>true</createDir>
+                            <directory>./src/main/java</directory>
+                            <basepackage>org.sundart.newmodel</basepackage>
+                            <modelPackageName>model</modelPackageName>
+                            <repositoryPackageName>repo</repositoryPackageName>
+                            <simpletestPackageName>simpletests</simpletestPackageName>
+                            <migrationPackageName>migration</migrationPackageName>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>42.5.0</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.sundart</groupId>
+            <artifactId>DbjFrameworkModel</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+</project>
